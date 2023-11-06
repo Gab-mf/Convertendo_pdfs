@@ -1,0 +1,18 @@
+import tabula
+import pandas as pd
+import os, re, csv
+
+dir = 'C:\pdfs'
+
+dfs = []
+
+for path in os.listdir(dir):
+
+    tabelas = tabula.read_pdf(path, pages='1')
+    #print(tabelas)
+    dfs.append(pd.DataFrame(tabelas[0]))
+
+df = pd.concat(dfs)
+print(df)
+
+df.to_excel("output.xlsx", index=False)
